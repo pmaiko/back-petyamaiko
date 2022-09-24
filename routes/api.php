@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::get('/global-data', 'App\Http\Controllers\Api\GlobalDataController@index');
+Route::get('/works', 'App\Http\Controllers\Api\WorksController@index');
+Route::post('/work', 'App\Http\Controllers\Api\WorkController@post');
+Route::put('/work', 'App\Http\Controllers\Api\WorkController@update');
+Route::put('/work-view', 'App\Http\Controllers\Api\WorkController@view');
+Route::put('/work-like', 'App\Http\Controllers\Api\WorkController@like');
