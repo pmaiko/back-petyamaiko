@@ -22,5 +22,6 @@ Route::get('/global-data', 'App\Http\Controllers\Api\GlobalDataController@index'
 Route::get('/projects', 'App\Http\Controllers\Api\ProjectsController@index');
 Route::post('/project', 'App\Http\Controllers\Api\ProjectController@post');
 Route::put('/project', 'App\Http\Controllers\Api\ProjectController@update');
+Route::delete('/project', 'App\Http\Controllers\Api\ProjectController@delete');
 Route::put('/project-view', 'App\Http\Controllers\Api\ProjectController@view');
 Route::put('/project-like', 'App\Http\Controllers\Api\ProjectController@like');

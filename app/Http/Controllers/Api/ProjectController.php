@@ -51,6 +51,18 @@ class ProjectController extends BaseController
         ]);
     }
 
+    function delete (Request $request) {
+        $request->validate([
+            'id' => 'required'
+        ]);
+
+        DB::table('projects')->where('id', $request->id)->delete();
+
+        return response()->json([
+            "success" => true
+        ]);
+    }
+
     function like (Request $request) {
         $request->validate([
             'id' => 'required',
