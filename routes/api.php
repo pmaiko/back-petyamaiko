@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/global-data', 'App\Http\Controllers\Api\GlobalDataController@index');
-Route::get('/works', 'App\Http\Controllers\Api\WorksController@index');
-Route::post('/work', 'App\Http\Controllers\Api\WorkController@post');
-Route::put('/work', 'App\Http\Controllers\Api\WorkController@update');
-Route::put('/work-view', 'App\Http\Controllers\Api\WorkController@view');
-Route::put('/work-like', 'App\Http\Controllers\Api\WorkController@like');
+Route::get('/projects', 'App\Http\Controllers\Api\ProjectsController@index');
+Route::post('/project', 'App\Http\Controllers\Api\ProjectController@post');
+Route::put('/project', 'App\Http\Controllers\Api\ProjectController@update');
+Route::put('/project-view', 'App\Http\Controllers\Api\ProjectController@view');
+Route::put('/project-like', 'App\Http\Controllers\Api\ProjectController@like');

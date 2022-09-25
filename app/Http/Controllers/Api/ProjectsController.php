@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Works;
+use App\Models\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Date;
@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\DB;
 //    // validation passed
 //}
 
-class WorksController extends BaseController
+class ProjectsController extends BaseController
 {
     function index ()
     {
-        $works = Works::all();
-        return $works->toArray();
+        $projects = Projects::all();
+        return $projects->toArray();
     }
 }

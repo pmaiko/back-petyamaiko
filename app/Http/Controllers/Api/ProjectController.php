@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Works;
+use App\Models\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class WorkController extends BaseController
+class ProjectController extends BaseController
 {
     function post (Request $request)
     {
@@ -18,7 +18,7 @@ class WorkController extends BaseController
             'description' => 'required|min:5'
         ]);
 
-        DB::table('works')->insert([
+        DB::table('projects')->insert([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
@@ -39,7 +39,7 @@ class WorkController extends BaseController
             'description' => 'required|min:5'
         ]);
 
-        DB::table('works')->where('id', $request->id)->update([
+        DB::table('projects')->where('id', $request->id)->update([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
@@ -59,7 +59,7 @@ class WorkController extends BaseController
 
         $id = $request->id;
         $like = $request->like;
-        $likes = DB::table('works')->where('id', $id)->value('likes') ?? 0;
+        $likes = DB::table('projects')->where('id', $id)->value('likes') ?? 0;
 
         if ($like) {
             $likes = $likes + 1;
@@ -71,7 +71,7 @@ class WorkController extends BaseController
             }
         }
 
-        DB::table('works')->where('id', $id)->update([
+        DB::table('projects')->where('id', $id)->update([
             'likes' => $likes
         ]);
 
@@ -88,7 +88,7 @@ class WorkController extends BaseController
 
         $id = $request->id;
         $view = $request->view;
-        $views = DB::table('works')->where('id', $id)->value('views') ?? 0;
+        $views = DB::table('projects')->where('id', $id)->value('views') ?? 0;
 
         if ($view) {
             $views = $views + 1;
@@ -100,7 +100,7 @@ class WorkController extends BaseController
             }
         }
 
-        DB::table('works')->where('id', $id)->update([
+        DB::table('projects')->where('id', $id)->update([
             'views' => $views
         ]);
 

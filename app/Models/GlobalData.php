@@ -17,8 +17,8 @@ class GlobalData extends Model
                             "link" => "/"
                         ],
                         [
-                            "label" => "Works",
-                            "link" => "/works"
+                            "label" => "Projects",
+                            "link" => "/projects"
                         ],
                         [
                             "label" => "About Me",

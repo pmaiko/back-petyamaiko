@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class WorksCommentsSeeder extends Seeder
+class ProjectsCommentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class WorksCommentsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('works_comments')->insert([
+        DB::table('projects_comments')->insert([
             'comment' => 'Класс!!!',
-            'work_id' => 1,
+            'project_id' => 1,
             'created_at' => Date::now()->toDateTimeString()
         ]);
     }
