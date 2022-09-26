@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\Projects;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
 
 //use Illuminate\Support\Facades\Validator; // include this at top
 //
@@ -22,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 //    // validation passed
 //}
 
-class ProjectsController extends BaseController
+class ProjectsController extends Controller
 {
     function index ()
     {

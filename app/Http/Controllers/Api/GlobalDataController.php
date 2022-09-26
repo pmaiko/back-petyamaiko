@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-//use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-//use Illuminate\Foundation\Bus\DispatchesJobs;
-//use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Controllers\Controller;
 use App\Models\GlobalData;
 
-class GlobalDataController extends BaseController {
+
+class GlobalDataController extends Controller {
     public function index () {
         return response()->json(GlobalData::getData());
     }

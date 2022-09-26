@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\Projects;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class ProjectController extends BaseController
+class ProjectController extends Controller
 {
     function post (Request $request)
     {
@@ -18,7 +21,7 @@ class ProjectController extends BaseController
             'description' => 'required|min:5'
         ]);
 
-        DB::table('projects')->insert([
+        Projects::create([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
@@ -39,7 +42,7 @@ class ProjectController extends BaseController
             'description' => 'required|min:5'
         ]);
 
-        DB::table('projects')->where('id', $request->id)->update([
+        Projects::where('id', $request->id)->update([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
@@ -56,7 +59,7 @@ class ProjectController extends BaseController
             'id' => 'required'
         ]);
 
-        DB::table('projects')->where('id', $request->id)->delete();
+        Projects::where('id', $request->id)->delete();
 
         return response()->json([
             "success" => true
@@ -71,7 +74,7 @@ class ProjectController extends BaseController
 
         $id = $request->id;
         $like = $request->like;
-        $likes = DB::table('projects')->where('id', $id)->value('likes') ?? 0;
+        $likes = Projects::where('id', $id)->value('likes') ?? 0;
 
         if ($like) {
             $likes = $likes + 1;
@@ -83,7 +86,7 @@ class ProjectController extends BaseController
             }
         }
 
-        DB::table('projects')->where('id', $id)->update([
+        Projects::where('id', $id)->update([
             'likes' => $likes
         ]);
 
@@ -100,7 +103,7 @@ class ProjectController extends BaseController
 
         $id = $request->id;
         $view = $request->view;
-        $views = DB::table('projects')->where('id', $id)->value('views') ?? 0;
+        $views = Projects::where('id', $id)->value('views') ?? 0;
 
         if ($view) {
             $views = $views + 1;
@@ -112,7 +115,7 @@ class ProjectController extends BaseController
             }
         }
 
-        DB::table('projects')->where('id', $id)->update([
+        Projects::where('id', $id)->update([
             'views' => $views
         ]);
 

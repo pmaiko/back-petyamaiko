@@ -18,10 +18,19 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+Route::post('/register', 'App\Http\Controllers\Api\AuthController@register');
+Route::post('/login', 'App\Http\Controllers\Api\AuthController@login');
+
 Route::get('/global-data', 'App\Http\Controllers\Api\GlobalDataController@index');
 Route::get('/projects', 'App\Http\Controllers\Api\ProjectsController@index');
-Route::post('/project', 'App\Http\Controllers\Api\ProjectController@post');
-Route::put('/project', 'App\Http\Controllers\Api\ProjectController@update');
-Route::delete('/project', 'App\Http\Controllers\Api\ProjectController@delete');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', 'App\Http\Controllers\Api\AuthController@logout');
+
+    Route::post('/project', 'App\Http\Controllers\Api\ProjectController@post');
+    Route::put('/project', 'App\Http\Controllers\Api\ProjectController@update');
+    Route::delete('/project', 'App\Http\Controllers\Api\ProjectController@delete');
+});
+
 Route::put('/project-view', 'App\Http\Controllers\Api\ProjectController@view');
 Route::put('/project-like', 'App\Http\Controllers\Api\ProjectController@like');
