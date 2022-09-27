@@ -45,16 +45,22 @@ class AuthController extends Controller
         // Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Bad creds'
+                'message' => 'Email or password is not correct',
+                'errors' => [
+                    'email' => ['Email or password is not correct']
+                ]
             ], 401);
         }
 
         $token = $user->createToken($request->device_name ?? 'PETYA')->plainTextToken;
 
         $response = [
+            'success' => 'true',
+            'message' => 'success',
             'user' => $user,
             'token' => $token
         ];
+
 
         return response($response, 201);
     }
@@ -65,5 +71,9 @@ class AuthController extends Controller
         return [
             'message' => 'Logged out'
         ];
+    }
+
+    public function user (Request $request) {
+        return response()->json(auth()->user());
     }
 }

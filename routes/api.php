@@ -25,6 +25,7 @@ Route::get('/global-data', 'App\Http\Controllers\Api\GlobalDataController@index'
 Route::get('/projects', 'App\Http\Controllers\Api\ProjectsController@index');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/user', 'App\Http\Controllers\Api\AuthController@user');
     Route::post('/logout', 'App\Http\Controllers\Api\AuthController@logout');
 
     Route::post('/project', 'App\Http\Controllers\Api\ProjectController@post');
