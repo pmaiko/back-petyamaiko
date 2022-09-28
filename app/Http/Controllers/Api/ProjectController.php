@@ -46,11 +46,14 @@ class ProjectController extends Controller
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
-            "created_at" => Date::now()->toDateTimeString()
+//            "created_at" => Date::now()->toDateTimeString()
         ]);
 
+        $project = Projects::where('id', $request->id)->first();
+
         return response()->json([
-            "success" => true
+            "success" => true,
+            "project" => $project
         ]);
     }
 
