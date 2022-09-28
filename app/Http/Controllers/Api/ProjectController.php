@@ -21,7 +21,7 @@ class ProjectController extends Controller
             'description' => 'required|min:5'
         ]);
 
-        Projects::create([
+        $project = Projects::create([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
@@ -29,7 +29,8 @@ class ProjectController extends Controller
         ]);
 
         return response()->json([
-            "success" => true
+            "success" => true,
+            "project" => $project
         ]);
     }
 
