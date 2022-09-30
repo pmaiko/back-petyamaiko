@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+    function index ($id) {
+        if ($id) {
+            $project = Projects::where('id', $id)->first();
+            return response()->json($project);
+        }
+    }
+
     function post (Request $request)
     {
         $request->validate([
