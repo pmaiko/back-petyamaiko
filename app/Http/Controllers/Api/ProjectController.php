@@ -35,10 +35,7 @@ class ProjectController extends Controller
             "created_at" => Date::now()->toDateTimeString()
         ]);
 
-        return response()->json([
-            "success" => true,
-            "project" => $project
-        ]);
+        return response()->json($project);
     }
 
     function update (Request $request)
@@ -59,10 +56,7 @@ class ProjectController extends Controller
 
         $project = Projects::where('id', $request->id)->first();
 
-        return response()->json([
-            "success" => true,
-            "project" => $project
-        ]);
+        return response()->json($project);
     }
 
     function delete (Request $request) {
