@@ -15,6 +15,7 @@ class CreateProjectsCommentsTable extends Migration
     {
         Schema::create('projects_comments', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('comment');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

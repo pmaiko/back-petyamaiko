@@ -16,7 +16,14 @@ class ProjectsCommentsSeeder extends Seeder
     public function run()
     {
         DB::table('projects_comments')->insert([
+            'name' => 'Zhenya',
             'comment' => 'Класс!!!',
+            'project_id' => 1,
+            'created_at' => Date::now()->toDateTimeString()
+        ]);
+        DB::table('projects_comments')->insert([
+            'name' => 'Petya',
+            'comment' => 'Супер!!!',
             'project_id' => 1,
             'created_at' => Date::now()->toDateTimeString()
         ]);
