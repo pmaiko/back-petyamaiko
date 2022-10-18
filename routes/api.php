@@ -39,3 +39,5 @@ Route::put('/project-like', 'App\Http\Controllers\Api\ProjectController@like');
 
 Route::get('/projects-comments', 'App\Http\Controllers\Api\ProjectsCommentsController@index');
 Route::post('/projects-comments', 'App\Http\Controllers\Api\ProjectsCommentsController@post');
+
+Route::post('/image', 'App\Http\Controllers\Api\ImageController@post');
