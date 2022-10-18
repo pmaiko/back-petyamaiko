@@ -1,6 +1,4 @@
 <?php
-//https://gist.github.com/sergomet/f234cc7a8351352170eb547cccd65011
-//https://developers.google.com/oauthplayground
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
