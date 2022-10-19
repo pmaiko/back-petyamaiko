@@ -13,7 +13,6 @@ class ImageController extends Controller {
   public function post (Request $request) {
     $file = $request->file('file');
     $filename = $file->getClientOriginalName();
-    $mimetype = $file->getClientMimeType();
 
     Storage::disk('google')->put($filename, file_get_contents($file));
 
@@ -23,11 +22,10 @@ class ImageController extends Controller {
       ->where('type', '=', 'file')
       ->where('name', '=', $filename)
       ->first();
-
     $rawData = Storage::cloud()->get($file['path']);
 
     return response($rawData, 200)
-      ->header('Content-Type', $mimetype)
+      ->header('Content-Type', $file['mimetype'])
       ->header('Content-Disposition', "attachment; filename='$filename'");
   }
 }
