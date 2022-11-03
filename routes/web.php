@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,14 +13,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\PagesController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+
+//pages
 Route::get('/pages', function () {
-    return view('pages.index');
+  $pages = [PagesController::class, 'index']();
+  $data = [
+    'pages' => $pages
+  ];
+  return view('pages.index', $data);
 })->name('pages.index');
+
+Route::get('/pages/edit/{id}', function ($id) {
+  $page = [PagesController::class, 'getById']($id);
+  return view('pages.edit', compact('page'));
+})->name('pages.edit');
+
+Route::post('/pages/edit/{id}', function (Request $request) {
+  return [PagesController::class, 'update']($request);
+})->name('pages.edit');
+//pages end
+
 
 Route::get('/pages/create', function () {
     return view('pages.create');

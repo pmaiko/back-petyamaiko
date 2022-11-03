@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PhotoSeeder::class,
             ProjectsSeeder::class,
             ProjectsCommentsSeeder::class,
+            PagesSeeder::class,
+            SectionMainBannerSeeder::class,
         ]);
     }
 }

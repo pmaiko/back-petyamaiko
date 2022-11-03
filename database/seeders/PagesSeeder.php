@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class PagesSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class PagesSeeder extends Seeder
      */
     public function run()
     {
-        //
+      DB::table('pages')->insert([
+        'title' => 'PETYA MAIKO',
+        'description' => 'SITE',
+        'alias' => 'home',
+        'created_at' => Date::now()->toDateTimeString()
+      ]);
     }
 }
