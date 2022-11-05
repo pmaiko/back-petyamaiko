@@ -62,7 +62,6 @@
   </ul>
 
   <form
-    action="/pages/edit/{{ $page['id'] }}"
     method="post"
     class="px-4 py-4 border border-top-0 border-secondary border-opacity-25 bg-white"
   >
@@ -144,18 +143,98 @@
   <script>
     const { createApp } = Vue
 
-    const MyComponent = {
-      template: '1212323'
+    const section_main_banner = {
+      template: `
+         <div class="border border-success bg-light p-3 mt-3">
+          <h3 class="mb-4">
+            section_main_banner
+          </h3>
+          <input value="true" type="hidden" name="section_main_banner" class="visually-hidden">
+          <div class="mb-3">
+            <label
+              for="section_main_banner_title"
+              class="form-label"
+            >
+              Title
+            </label>
+            <input
+              value=""
+              name="section_main_banner_title"
+              id="section_main_banner_title"
+              type="text"
+              class="form-control"
+            >
+          </div>
+          <div class="mb-3">
+            <label
+              for="section_main_banner_description"
+              class="form-label">
+              Description
+            </label>
+            <textarea
+              name="section_main_banner_description"
+              id="section_main_banner_description"
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label
+              for="section_main_banner_button_label"
+              class="form-label"
+            >
+              Button Label
+            </label>
+            <input
+              value=""
+              name="section_main_banner_button_label"
+              id="section_main_banner_button_label"
+              type="text"
+              class="form-control"
+            >
+          </div>
+          <div class="mb-3">
+            <label
+              for="section_main_banner_hint"
+              class="form-label"
+            >
+              Hint
+            </label>
+            <input
+              value=""
+              name="section_main_banner_hint"
+              id="section_main_banner_hint"
+              type="text"
+              class="form-control"
+            >
+          </div>
+          <div class="mb-3">
+            <label
+              for="section_main_banner_image"
+              class="form-label"
+            >
+              Image
+            </label>
+            <input
+              value=""
+              name="section_main_banner_image"
+              id="section_main_banner_image"
+              type="file"
+              class="form-control"
+            >
+          </div>
+        </div>
+      `
     }
 
     createApp({
       components: {
-        MyComponent
+        section_main_banner
       },
 
       data() {
         return {
-          sections: [
+          sectionsList: [
             {
               label: 'NULL',
               value: null
@@ -164,23 +243,29 @@
               label: 'section_main_banner',
               value: 'section_main_banner'
             }
-          ]
+          ],
+
+          selected: null
         }
       },
 
       template: `
-          <select class="form-select" aria-label="select section">
-            <option
-              v-for="(section, index) in sections"
-              key="index"
-              :selected="!index"
-              :value="section.value"
-            >
-              @{{ section.label }}
-            </option>
-          </select>
-          <MyComponent></MyComponent>
-          @{{ message }}
+        <select
+          v-model="selected"
+          class="form-select"
+          aria-label="select section"
+        >
+          <option
+            v-for="(section, index) in sectionsList"
+            key="index"
+            :selected="!index"
+            :value="section.value"
+          >
+            @{{ section.label }}
+          </option>
+        </select>
+        <component :is="selected" />
+        @{{ message }}
       `
     }).mount('#app')
   </script>

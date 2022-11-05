@@ -14,7 +14,7 @@ class CreateSectionMainBannerTable extends Migration
     public function up()
     {
         Schema::create('section_main_banner', function (Blueprint $table) {
-            $table->id();
+          $table->id();
           $table->string('name')->default('section_main_banner');
           $table->string('image');
           $table->string('title');

@@ -30,7 +30,7 @@ Route::get('/pages', function () {
 })->name('pages.index');
 
 Route::get('/pages/edit/{id}', function ($id) {
-  $page = [PagesController::class, 'getById']($id);
+  $page = [PagesController::class, 'getPage']($id);
   return view('pages.edit', compact('page'));
 })->name('pages.edit');
 
