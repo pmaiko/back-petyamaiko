@@ -144,12 +144,14 @@
     const { createApp } = Vue
 
     const section_main_banner = {
+      props: ['id', 'title', 'description', 'button_label', 'hint', 'image'],
       template: `
          <div class="border border-success bg-light p-3 mt-3">
           <h3 class="mb-4">
             section_main_banner
           </h3>
-          <input value="true" type="hidden" name="section_main_banner" class="visually-hidden">
+          <input value="true" type="hidden" name="section_main_banner[]" class="visually-hidden">
+          <input :value="id" type="hidden" name="section_main_banner.id[]" class="visually-hidden">
           <div class="mb-3">
             <label
               for="section_main_banner_title"
@@ -158,8 +160,8 @@
               Title
             </label>
             <input
-              value=""
-              name="section_main_banner_title"
+              :value="title"
+              name="section_main_banner_title[]"
               id="section_main_banner_title"
               type="text"
               class="form-control"
@@ -172,11 +174,11 @@
               Description
             </label>
             <textarea
-              name="section_main_banner_description"
+              name="section_main_banner_description[]"
               id="section_main_banner_description"
               class="form-control"
               rows="3"
-            ></textarea>
+            >@{{ description }}</textarea>
           </div>
           <div class="mb-3">
             <label
@@ -186,8 +188,8 @@
               Button Label
             </label>
             <input
-              value=""
-              name="section_main_banner_button_label"
+              :value="button_label"
+              name="section_main_banner_button_label[]"
               id="section_main_banner_button_label"
               type="text"
               class="form-control"
@@ -201,8 +203,8 @@
               Hint
             </label>
             <input
-              value=""
-              name="section_main_banner_hint"
+              :value="hint"
+              name="section_main_banner_hint[]"
               id="section_main_banner_hint"
               type="text"
               class="form-control"
@@ -217,7 +219,7 @@
             </label>
             <input
               value=""
-              name="section_main_banner_image"
+              name="section_main_banner_image[]"
               id="section_main_banner_image"
               type="file"
               class="form-control"
@@ -245,6 +247,8 @@
             }
           ],
 
+          sections: {!! json_encode($sections) !!},
+
           selected: null
         }
       },
@@ -265,6 +269,14 @@
           </option>
         </select>
         <component :is="selected" />
+        <div class="sections">
+          <component
+            v-for="section in sections"
+            :key="section.id"
+            :is="section.section_name"
+            v-bind="section.data"
+          />
+        </div>
         @{{ message }}
       `
     }).mount('#app')

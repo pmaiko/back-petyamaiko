@@ -30,8 +30,7 @@ Route::get('/pages', function () {
 })->name('pages.index');
 
 Route::get('/pages/edit/{id}', function ($id) {
-  $page = [PagesController::class, 'getPage']($id);
-  return view('pages.edit', compact('page'));
+  return view('pages.edit', [PagesController::class, 'getPage']($id));
 })->name('pages.edit');
 
 Route::post('/pages/edit/{id}', function (Request $request) {
