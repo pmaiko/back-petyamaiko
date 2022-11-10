@@ -145,82 +145,94 @@
 
     const section_main_banner = {
       props: ['id', 'title', 'description', 'button_label', 'hint', 'image'],
+
+      data () {
+        return {
+          isRemove: false
+        }
+      },
+
       template: `
          <div class="border border-success bg-light p-3 mt-3">
-          <h3 class="mb-4">
-            section_main_banner
-          </h3>
-          <input value="true" type="hidden" name="section_main_banner[]" class="visually-hidden">
-          <input :value="id" type="hidden" name="section_main_banner.id[]" class="visually-hidden">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3 class="mb-4">
+              section_main_banner
+            </h3>
+            <button @click="isRemove = !isRemove" type="button">@{{ isRemove ? 'cansel remove' : 'remove' }}</button>
+          </div>
+          <input v-if="isRemove" value="1" type="hidden" :name="'section_main_banner__delete[' + id + ']'" class="visually-hidden">
+          <input value="section_main_banner" type="hidden" :name="'section_name[' + id + ']'" class="visually-hidden">
+          <input :value="id" type="hidden" :name="'section_id[' + id + ']'" class="visually-hidden">
+
           <div class="mb-3">
             <label
-              for="section_main_banner_title"
+              for="section_main_banner__title"
               class="form-label"
             >
               Title
             </label>
             <input
               :value="title"
-              name="section_main_banner_title[]"
-              id="section_main_banner_title"
+              :name="'section_main_banner__title[' + id + ']'"
+              id="section_main_banner__title"
               type="text"
               class="form-control"
             >
           </div>
           <div class="mb-3">
             <label
-              for="section_main_banner_description"
+              for="section_main_banner__description"
               class="form-label">
               Description
             </label>
             <textarea
-              name="section_main_banner_description[]"
-              id="section_main_banner_description"
+              :name="'section_main_banner__description[' + id + ']'"
+              id="section_main_banner__description"
               class="form-control"
               rows="3"
             >@{{ description }}</textarea>
           </div>
           <div class="mb-3">
             <label
-              for="section_main_banner_button_label"
+              for="section_main_banner__button_label"
               class="form-label"
             >
               Button Label
             </label>
             <input
               :value="button_label"
-              name="section_main_banner_button_label[]"
-              id="section_main_banner_button_label"
+              :name="'section_main_banner__button_label[' + id + ']'"
+              id="section_main_banner__button_label"
               type="text"
               class="form-control"
             >
           </div>
           <div class="mb-3">
             <label
-              for="section_main_banner_hint"
+              for="section_main_banner__hint"
               class="form-label"
             >
               Hint
             </label>
             <input
               :value="hint"
-              name="section_main_banner_hint[]"
-              id="section_main_banner_hint"
+              :name="'section_main_banner__hint[' + id + ']'"
+              id="section_main_banner__hint"
               type="text"
               class="form-control"
             >
           </div>
           <div class="mb-3">
             <label
-              for="section_main_banner_image"
+              for="section_main_banner__image"
               class="form-label"
             >
               Image
             </label>
             <input
               value=""
-              name="section_main_banner_image[]"
-              id="section_main_banner_image"
+              :name="'section_main_banner__image[' + id + ']'"
+              id="section_main_banner__image"
               type="file"
               class="form-control"
             >
@@ -273,8 +285,8 @@
           <component
             v-for="section in sections"
             :key="section.id"
-            :is="section.section_name"
-            v-bind="section.data"
+            :is="section.name"
+            v-bind="section"
           />
         </div>
         @{{ message }}

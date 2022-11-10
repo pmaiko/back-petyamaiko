@@ -12,4 +12,8 @@ class Pages extends Model
   protected $table = "pages";
 
   protected $guarded = [];
+
+  public function sections () {
+    return $this->hasMany(PagesSections::class, 'page_id');
+  }
 }

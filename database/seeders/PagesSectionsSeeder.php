@@ -15,11 +15,6 @@ class PagesSectionsSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('pages_sections')->insert([
-        'page_id' => '1',
-        'section_id' => '1',
-        'section_name' => 'section_main_banner',
-        'created_at' => Date::now()->toDateTimeString()
-      ]);
+      //
     }
 }

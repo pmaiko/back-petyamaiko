@@ -12,4 +12,8 @@ class PagesSections extends Model
   protected $table = "pages_sections";
 
   protected $guarded = [];
+
+  public function pages () {
+    $this->hasMany(Pages::class)->where();
+  }
 }
