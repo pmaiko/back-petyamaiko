@@ -140,110 +140,19 @@
     </button>
   </form>
 
+  <x-sections.base_section />
+  <x-sections.section_main_banner />
+  <x-sections.section_services />
+  <x-sections.section_projects />
+
   <script>
     const { createApp } = Vue
 
-    const section_main_banner = {
-      props: ['id', 'title', 'description', 'button_label', 'hint', 'image'],
-
-      data () {
-        return {
-          isRemove: false
-        }
-      },
-
-      template: `
-         <div class="border border-success bg-light p-3 mt-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <h3 class="mb-4">
-              section_main_banner
-            </h3>
-            <button @click="isRemove = !isRemove" type="button">@{{ isRemove ? 'cansel remove' : 'remove' }}</button>
-          </div>
-          <input v-if="isRemove" value="1" type="hidden" :name="'section_main_banner__delete[' + id + ']'" class="visually-hidden">
-          <input value="section_main_banner" type="hidden" :name="'section_name[' + id + ']'" class="visually-hidden">
-          <input :value="id" type="hidden" :name="'section_id[' + id + ']'" class="visually-hidden">
-
-          <div class="mb-3">
-            <label
-              for="section_main_banner__title"
-              class="form-label"
-            >
-              Title
-            </label>
-            <input
-              :value="title"
-              :name="'section_main_banner__title[' + id + ']'"
-              id="section_main_banner__title"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="mb-3">
-            <label
-              for="section_main_banner__description"
-              class="form-label">
-              Description
-            </label>
-            <textarea
-              :name="'section_main_banner__description[' + id + ']'"
-              id="section_main_banner__description"
-              class="form-control"
-              rows="3"
-            >@{{ description }}</textarea>
-          </div>
-          <div class="mb-3">
-            <label
-              for="section_main_banner__button_label"
-              class="form-label"
-            >
-              Button Label
-            </label>
-            <input
-              :value="button_label"
-              :name="'section_main_banner__button_label[' + id + ']'"
-              id="section_main_banner__button_label"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="mb-3">
-            <label
-              for="section_main_banner__hint"
-              class="form-label"
-            >
-              Hint
-            </label>
-            <input
-              :value="hint"
-              :name="'section_main_banner__hint[' + id + ']'"
-              id="section_main_banner__hint"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="mb-3">
-            <label
-              for="section_main_banner__image"
-              class="form-label"
-            >
-              Image
-            </label>
-            <input
-              value=""
-              :name="'section_main_banner__image[' + id + ']'"
-              id="section_main_banner__image"
-              type="file"
-              class="form-control"
-            >
-          </div>
-        </div>
-      `
-    }
-
     createApp({
       components: {
-        section_main_banner
+        section_main_banner,
+        section_services,
+        section_projects
       },
 
       data() {
@@ -255,7 +164,15 @@
             },
             {
               label: 'section_main_banner',
-              value: 'section_main_banner'
+              value: 'section_main_banner',
+            },
+            {
+              label: 'section_services',
+              value: 'section_services'
+            },
+            {
+              label: 'section_projects',
+              value: 'section_projects'
             }
           ],
 
@@ -280,7 +197,7 @@
             @{{ section.label }}
           </option>
         </select>
-        <component :is="selected" />
+        <component :is="selected" :name="selected" />
         <div class="sections">
           <component
             v-for="section in sections"

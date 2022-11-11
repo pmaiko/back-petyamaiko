@@ -43,12 +43,6 @@
               PAGES
           </a>
           <a
-            type="button"
-            class="{{ request()->is('services') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
-          >
-              SERVICES
-          </a>
-          <a
             href="{{ route('projects') }}"
             type="button"
             class="{{ request()->is('projects') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
