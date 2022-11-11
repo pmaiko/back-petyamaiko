@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+Route::get('/pages/{alias}', 'App\Http\Controllers\Api\PagesController@index');
+Route::post('/image-loader', 'App\Http\Controllers\Api\ImageController@load');
+
 Route::post('/register', 'App\Http\Controllers\Api\AuthController@register');
 Route::post('/login', 'App\Http\Controllers\Api\AuthController@login');
 

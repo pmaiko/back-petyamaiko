@@ -28,4 +28,20 @@ class ImageController extends Controller {
       ->header('Content-Type', $file['mimetype'])
       ->header('Content-Disposition', "attachment; filename='$filename'");
   }
+
+  public function load (Request $request) {
+    $file = $request->file('file');
+    $filename = $file->getClientOriginalName();
+
+    Storage::disk('google')->put($filename, file_get_contents($file));
+
+    $contents = collect(Storage::cloud()->listContents('/', false));
+
+    $file = $contents
+      ->where('type', '=', 'file')
+      ->where('name', '=', $filename)
+      ->first();
+
+    dd($file['path']);
+  }
 }

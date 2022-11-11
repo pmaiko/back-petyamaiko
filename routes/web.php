@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 use App\Http\Controllers\PagesController;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('home');
@@ -59,7 +60,25 @@ Route::get('/storage/{filename}', function ($filename) {
   $path = storage_path('app/' . $filename);
 
   if (!File::exists($path)) {
-    abort(404);
+    $path = $filename;
+
+    $contents = collect(Storage::cloud()->listContents('/', false));
+
+    $file = $contents
+      ->where('type', '=', 'file')
+      ->where('path', '=', $path)
+      ->first();
+    $rawData = Storage::cloud()->get($path);
+
+    $filename = $file['name'];
+
+    if (empty($rawData)) {
+      abort(404);
+    }
+
+    return response($rawData, 200)
+      ->header('Content-Type', $file['mimetype'])
+      ->header('Content-Disposition', "attachment; filename=$filename");
   }
 
   $file = File::get($path);
