@@ -47,6 +47,7 @@ class PagesController extends Controller
       'section_main_banner__description.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
       'section_main_banner__button_label.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
       'section_main_banner__hint.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
+      'section_main_banner__image.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
 
       'section_services__title.*' => 'exclude_if:section_services__delete.*,1|required_if:section_name.*,section_services|min:1',
       'list.*' => 'exclude_if:section_services__delete.*,1|required_if:section_name.*,section_services|min:1',
@@ -74,7 +75,7 @@ class PagesController extends Controller
 
       if ($request->section_name[$key] === 'section_main_banner') {
         $section = array_merge($section, [
-          'image' => 1,
+          'image' => $request->section_main_banner__image[$key],
           'title' => $request->section_main_banner__title[$key],
           'description' => $request->section_main_banner__description[$key],
           'button_label' => $request->section_main_banner__button_label[$key],

@@ -42,6 +42,6 @@ class ImageController extends Controller {
       ->where('name', '=', $filename)
       ->first();
 
-    dd($file['path']);
+    return response($file['path'], 200);
   }
 }

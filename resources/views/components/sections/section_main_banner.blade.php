@@ -1,9 +1,11 @@
+<x-file_loader />
 <script>
   const section_main_banner = {
     props: ['id', 'name', 'title', 'description', 'button_label', 'hint', 'image'],
 
     components: {
-      base_section
+      base_section,
+      file_loader
     },
 
     template: `
@@ -67,19 +69,7 @@
         >
       </div>
       <div class="mb-3">
-        <label
-          for="section_main_banner__image"
-          class="form-label"
-        >
-          Image
-        </label>
-        <input
-          value=""
-          :name="'section_main_banner__image[' + id + ']'"
-          id="section_main_banner__image"
-          type="file"
-          class="form-control"
-        >
+        <file_loader :name="'section_main_banner__image[' + id + ']'" :image="image" />
       </div>
     </base_section>
    `
