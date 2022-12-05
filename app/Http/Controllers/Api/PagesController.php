@@ -11,33 +11,32 @@ class PagesController extends Controller
 {
     function index (Request $request) {
       $page = Pages::where('alias', $request->alias)->first();
-      $sections = $page->sections->toArray();
+      $blocks = array_values($page->blocks->sortBy('position')->toArray());
 
-      $out_sections = array();
+      $out_blocks = array();
 
-      foreach ($sections as $section) {
-        $data = json_decode($section['data'], true);
-        $name = $data['name'];
+      foreach ($blocks as $block) {
+        $data = json_decode($block['data'], true);
+        $name = $block['name'];
 
-        if ($name === 'section_projects') {
+        if ($name === 'block_projects') {
           $projects = ProjectsController::index();
           $data = array_merge($data, [
             'projects' => $projects
           ]);
         }
 
-        array_push($out_sections, [
+        // array push
+        $out_blocks[] = [
           'name' => $name,
-          'attributes' => array_filter($data, function ($key) {
-            return $key !== 'name' && $key !== 'page_id' && $key !== 'position';
-          }, ARRAY_FILTER_USE_KEY)
-        ]);
+          'attributes' => $data
+        ];
       }
 
       return response()->json([
         'title' => $page->title,
         'description' => $page->description,
-        'sections' => $out_sections
+        'blocks' => $out_blocks
       ]);
     }
 }

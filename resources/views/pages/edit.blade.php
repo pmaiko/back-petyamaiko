@@ -140,74 +140,8 @@
     </button>
   </form>
 
-  <x-sections.base_section />
-  <x-sections.section_main_banner />
-  <x-sections.section_services />
-  <x-sections.section_projects />
-
   <script>
-    const { createApp } = Vue
-
-    createApp({
-      components: {
-        section_main_banner,
-        section_services,
-        section_projects
-      },
-
-      data() {
-        return {
-          sectionsList: [
-            {
-              label: 'NULL',
-              value: null
-            },
-            {
-              label: 'section_main_banner',
-              value: 'section_main_banner',
-            },
-            {
-              label: 'section_services',
-              value: 'section_services'
-            },
-            {
-              label: 'section_projects',
-              value: 'section_projects'
-            }
-          ],
-
-          sections: {!! json_encode($sections) !!},
-
-          selected: null
-        }
-      },
-
-      template: `
-        <select
-          v-model="selected"
-          class="form-select"
-          aria-label="select section"
-        >
-          <option
-            v-for="(section, index) in sectionsList"
-            key="index"
-            :selected="!index"
-            :value="section.value"
-          >
-            @{{ section.label }}
-          </option>
-        </select>
-        <component :is="selected" :name="selected" />
-        <div class="sections">
-          <component
-            v-for="section in sections"
-            :key="section.id"
-            :is="section.name"
-            v-bind="section"
-          />
-        </div>
-        @{{ message }}
-      `
-    }).mount('#app')
+    window['blocks'] = {!! json_encode($blocks) !!}
   </script>
+  <script src="{{ asset('js/edit/index.js') }}"></script>
 @stop

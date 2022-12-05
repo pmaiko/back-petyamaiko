@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class PagesSectionsSeeder extends Seeder
+class PagesBlocksSeeder extends Seeder
 {
     /**
      * Run the database seeds.

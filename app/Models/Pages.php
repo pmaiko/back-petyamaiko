@@ -13,7 +13,7 @@ class Pages extends Model
 
   protected $guarded = [];
 
-  public function sections () {
-    return $this->hasMany(PagesSections::class, 'page_id');
+  public function blocks () {
+    return $this->hasMany(PagesBlocks::class, 'page_id');
   }
 }

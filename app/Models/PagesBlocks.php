@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PagesSections extends Model
+class PagesBlocks extends Model
 {
     use HasFactory;
 
-  protected $table = "pages_sections";
+  protected $table = "pages_blocks";
 
   protected $guarded = [];
 

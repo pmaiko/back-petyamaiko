@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pages;
 use App\Models\SectionMainBanner;
-use App\Models\PagesSections;
+use App\Models\PagesBlocks;
 use Illuminate\Support\Facades\Date;
 use App\Entity\Post;
 
@@ -24,101 +24,75 @@ class PagesController extends Controller
 //https://github.com/barryvdh/laravel-debugbar
 //посмотреть скопы
 //посмотреть карбон для времени
+//exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1
+//exclude_if:section_services__delete.*,1|required_if:section_name.*,section_services|min:1
 
     $page = Pages::where('id', $id)->first();
-    $sections = $page->sections->sortBy('position')->toArray();
+    $blocks = array_values($page->blocks->sortBy('position')->toArray());
 
-    $var = [
-      'page' => $page->toArray(),
-      'sections' => array_map(function ($section) {
-        return array_merge(['id' => $section['id']], json_decode($section['data'], true));
-      }, $sections),
+    $result = [
+      'page' => array_filter($page->toArray(), function ($key) {
+        return $key !== 'blocks';
+      }, ARRAY_FILTER_USE_KEY),
+      'blocks' => array_map(function ($block) {
+        return array_merge(
+          [
+            'id' => $block['id'],
+            'name' => $block['name'],
+            'position' => $block['position'],
+          ],
+          json_decode($block['data'], true));
+      }, $blocks),
     ];
 
-    return $var;
+    return $result;
   }
 
   function update ($request) {
-    $request->validate([
-      'title' => 'required',
-      'description' => 'required',
-      'section_name.*' => 'required',
-      'section_main_banner__title.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
-      'section_main_banner__description.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
-      'section_main_banner__button_label.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
-      'section_main_banner__hint.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
-      'section_main_banner__image.*' => 'exclude_if:section_main_banner__delete.*,1|required_if:section_name.*,section_main_banner|min:1',
-
-      'section_services__title.*' => 'exclude_if:section_services__delete.*,1|required_if:section_name.*,section_services|min:1',
-      'list.*' => 'exclude_if:section_services__delete.*,1|required_if:section_name.*,section_services|min:1',
-//      'section_main_banner__image' => 'required_if:section_main_banner,==,true',
-//      'section_main_banner__delete' => 'required_if:section_main_banner,==,true',
-    ]);
+        $request->validate([
+          'title' => 'required',
+          'description' => 'required',
+          'blocks' => 'required',
+          'blocks.*.name' => 'required'
+        ]);
 
     Pages::where('id', $request->id)->update([
       'title' => $request->title,
       'description' => $request->description
     ]);
 
-//    dd($request);
-    foreach ($request->section_name as $index => $value) {
-      $section_id = $request->section_id[$index];
-      $key = $section_id ?? $index;
+    foreach ($request->blocks as $id => $data) {
+      $uniqKeys = array('id', 'name', 'position', 'remove');
 
-      $section = [
-        'position' => $request->position[$key] ?? null,
-        'name' => $request->section_name[$key],
-        'page_id' => $request->id
-      ];
+      $block_id = $id;
+      $block_name = $data['name'];
+      $block_position = $data['position'] ?? 0;
+      $block_remove = $data['remove'] ?? null;
 
-      $delete = null;
+      $block_data = array_filter($data, function ($key) use ($uniqKeys) {
+        return !in_array($key, $uniqKeys);
+      }, ARRAY_FILTER_USE_KEY);
 
-      if ($request->section_name[$key] === 'section_main_banner') {
-        $section = array_merge($section, [
-          'image' => $request->section_main_banner__image[$key],
-          'title' => $request->section_main_banner__title[$key],
-          'description' => $request->section_main_banner__description[$key],
-          'button_label' => $request->section_main_banner__button_label[$key],
-          'hint' => $request->section_main_banner__hint[$key],
-        ]);
-
-        $delete = $request->section_main_banner__delete[$key] ?? null;
-      }
-
-      if ($request->section_name[$key] === 'section_services') {
-        $section = array_merge($section, [
-          'title' => $request->section_services__title[$key],
-          'list' => json_decode($request->section_services__list[$key]),
-        ]);
-
-        $delete = $request->section_services__delete[$key] ?? null;
-      }
-
-      if ($request->section_name[$key] === 'section_projects') {
-        $section = array_merge($section, [
-          'title' => $request->section_projects__title[$key]
-        ]);
-
-        $delete = $request->section_projects__delete[$key] ?? null;
-      }
-
-
-      // seve
-      if (empty($section_id)) {
-        PagesSections::create([
+      // save
+      if (empty($block_id) || $block_id === 'null') {
+        PagesBlocks::create([
           'page_id' => $request->id,
-          'data' => json_encode($section),
+          'name' => $block_name,
+          'position' => $block_position,
+          'data' => json_encode($block_data),
           'created_at' => Date::now()->toDateTimeString()
         ]);
       } else {
-        if (empty($delete)) {
-          PagesSections::where('id', $section_id)->update([
+        if (empty($block_remove)) {
+          PagesBlocks::where('id', $block_id)->update([
             'page_id' => $request->id,
-            'data' => json_encode($section),
+            'name' => $block_name,
+            'position' => $block_position,
+            'data' => json_encode($block_data),
             'updated_at' => Date::now()->toDateTimeString()
           ]);
         } else {
-          PagesSections::where('id', $section_id)->delete();
+          PagesBlocks::where('id', $block_id)->delete();
         }
       }
     }

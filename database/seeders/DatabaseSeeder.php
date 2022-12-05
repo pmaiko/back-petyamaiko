@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             ProjectsSeeder::class,
             ProjectsCommentsSeeder::class,
             PagesSeeder::class,
-            PagesSectionsSeeder::class
+            PagesBlocksSeeder::class
         ]);
     }
 }
