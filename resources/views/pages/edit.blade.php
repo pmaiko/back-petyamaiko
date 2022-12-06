@@ -56,7 +56,7 @@
         aria-controls="sections-tab-pane"
         aria-selected="false"
       >
-        Sections
+        Blocks
       </button>
     </li>
   </ul>

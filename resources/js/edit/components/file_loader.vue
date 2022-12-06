@@ -19,11 +19,13 @@
       type="file"
       class="form-control"
     >
-
+    <file_manager
+      @select="onSelect"
+    />
     <button
       class="btn btn-primary"
-      type=button
-      @click=load
+      type="button"
+      @click="load"
     >
       Load
     </button>
@@ -41,10 +43,16 @@
   </div>
 </template>
 <script>
+import file_manager from './file_manager.vue'
+
 export default {
   props: ['name', 'image'],
 
-  data() {
+  components: {
+    file_manager
+  },
+
+  data () {
     return {
       filePath: this.image || null,
       percent: 0,
@@ -53,6 +61,10 @@ export default {
   },
 
   methods: {
+    onSelect (path) {
+      this.filePath = path
+    },
+
     load(event) {
       const elFile = event.target.previousSibling
       const elText = event.target.previousSibling.previousSibling

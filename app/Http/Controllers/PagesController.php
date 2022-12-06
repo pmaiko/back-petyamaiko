@@ -63,6 +63,7 @@ class PagesController extends Controller
 
     foreach ($request->blocks as $id => $data) {
       $uniqKeys = array('id', 'name', 'position', 'remove');
+      $jsonKeys = array('list', 'items');
 
       $block_id = $id;
       $block_name = $data['name'];
@@ -72,6 +73,16 @@ class PagesController extends Controller
       $block_data = array_filter($data, function ($key) use ($uniqKeys) {
         return !in_array($key, $uniqKeys);
       }, ARRAY_FILTER_USE_KEY);
+
+      $tmp = [];
+      foreach ($block_data as $key => $value) {
+        if (in_array($key, $jsonKeys)) {
+          $tmp[$key] = json_decode($value);
+        } else {
+          $tmp[$key] = $value;
+        }
+      }
+      $block_data = $tmp;
 
       // save
       if (empty($block_id) || $block_id === 'null') {

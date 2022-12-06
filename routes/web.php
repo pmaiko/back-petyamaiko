@@ -56,7 +56,7 @@ Route::get('/greeting', function () {
     return 'Hello World';
 });
 
-Route::get('/storage/{filename}', function ($filename) {
+function getFile ($filename) {
   $path = storage_path('app/' . $filename);
 
   if (!File::exists($path)) {
@@ -88,4 +88,18 @@ Route::get('/storage/{filename}', function ($filename) {
   $response->header("Content-Type", $type);
 
   return $response;
+}
+
+Route::get('/storage/{filename}', function ($filename) {
+  return getFile($filename);
+});
+
+Route::get('/api/storage/all', function () {
+  $contents = collect(Storage::cloud()->listContents('/', false))->toArray();
+
+  return response()->json($contents);
+});
+
+Route::delete('/api/storage/{path}', function ($path) {
+  Storage::cloud()->delete($path);
 });
