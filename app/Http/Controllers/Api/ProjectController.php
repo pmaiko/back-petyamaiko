@@ -20,6 +20,12 @@ class ProjectController extends Controller
         }
     }
 
+    function indexCollect ($id) {
+        if ($id) {
+          return Projects::where('id', $id)->first();
+        }
+    }
+
     function post (Request $request)
     {
         $request->validate([
@@ -47,12 +53,7 @@ class ProjectController extends Controller
             'description' => 'required|min:5'
         ]);
 
-        Projects::where('id', $request->id)->update([
-            "image" => $request->image,
-            "label" => $request->label,
-            "description" => $request->description,
-//            "created_at" => Date::now()->toDateTimeString()
-        ]);
+        Projects::where('id', $request->id)->update($request->toArray());
 
         $project = Projects::where('id', $request->id)->first();
 

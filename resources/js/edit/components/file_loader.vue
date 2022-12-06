@@ -1,6 +1,5 @@
 <template>
   <label
-    for="section_main_banner__image"
     class="form-label"
   >
     Image
@@ -13,9 +12,7 @@
       type="text"
       class="visually-hidden"
     >
-
     <input
-      id="section_main_banner__image"
       type="file"
       class="form-control"
     >
@@ -30,6 +27,7 @@
       Load
     </button>
   </div>
+
   <div class="mt-3">
     <div
       v-if="loading"

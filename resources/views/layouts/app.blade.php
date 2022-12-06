@@ -39,14 +39,14 @@
           <a
             href="{{ route('pages.index') }}"
             type="button"
-            class="{{ request()->is('pages') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
+            class="{{ request()->is('pages*') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
           >
               PAGES
           </a>
           <a
-            href="{{ route('projects') }}"
+            href="{{ route('projects.index') }}"
             type="button"
-            class="{{ request()->is('projects') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
+            class="{{ request()->is('projects*') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
           >
               PROJECTS
           </a>
@@ -56,18 +56,6 @@
             class="{{ request()->is('info') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
           >
               INFO
-          </a>
-          <a
-            type="button"
-            class="{{ request()->is('about') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
-          >
-              ABOUT
-          </a>
-          <a
-            type="button"
-            class="{{ request()->is('contacts') ? 'btn-primary' : 'btn-dark'}} btn text-lg-start rounded-0 mb-1"
-          >
-              CONTACT
           </a>
         </div>
       </div>

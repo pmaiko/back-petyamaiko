@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Api\ProjectsController;
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
@@ -43,10 +45,6 @@ Route::post('/pages/edit/{id}', function (Request $request) {
 Route::get('/pages/create', function () {
     return view('pages.create');
 })->name('pages.create');
-
-Route::get('/projects', function () {
-    return view('projects');
-})->name('projects');
 
 Route::get('/info', function () {
     return view('info');
@@ -78,6 +76,7 @@ function getFile ($filename) {
 
     return response($rawData, 200)
       ->header('Content-Type', $file['mimetype'])
+      ->header('Cache-Control', 'public, max-age=315360000')
       ->header('Content-Disposition', "attachment; filename=$filename");
   }
 
@@ -103,3 +102,44 @@ Route::get('/api/storage/all', function () {
 Route::delete('/api/storage/{path}', function ($path) {
   Storage::cloud()->delete($path);
 });
+
+//php artisan cache:clear
+//php artisan route:clear
+//php artisan config:clear
+//projects
+Route::get('/projects', function () {
+  $projects = [ProjectsController::class, 'index']();
+
+  $data = [
+    'projects' => $projects
+  ];
+
+  return view('projects.index', $data);
+})->name('projects.index');
+
+Route::get('/projects/create', function () {
+  return view('projects.create');
+})->name('projects.create');
+
+Route::post('/projects/create', function (Request $request) {
+  [ProjectController::class, 'post']($request);
+  return redirect()->back()->with('status', 'Success');
+})->name('projects.create');
+
+Route::get('/projects/update/{id}', function ($id) {
+  $project = [ProjectController::class, 'indexCollect']($id);
+  $data = [
+    'project' => $project->toArray()
+  ];
+  return view('projects.update', $data);
+})->name('projects.update');
+
+Route::post('/projects/update/{id}', function (Request $request) {
+  [ProjectController::class, 'update']($request);
+  return redirect()->back()->with('status', 'Success');
+})->name('projects.update');
+
+Route::post('/projects/delete/{id}', function (Request $request) {
+  [ProjectController::class, 'delete']($request);
+  return redirect()->back()->with('status', 'Success');
+})->name('projects.delete');
