@@ -46,5 +46,13 @@ class PagesBlocksSeeder extends Seeder
         'data' => '{"label": "Front End Developer", "title": "About me", "buttonLink": "/storage/1t7Kx69STP9kCZQOXTGNw6ILGEkrzDKQW", "buttonText": "Download resume", "description": "<ul><li>Master’s degree in computer science, information technology, or engineering</li><li>At least 3+ years of experience in Vue.js and object-oriented programming&nbsp;</li><li>Proficiency in JavaScript language, including its syntax and features&nbsp;</li><li>Strong understanding of the Vue.js framework and its core principles&nbsp;</li><li>Familiarity with the Vue.js ecosystem&nbsp;</li><li>Working experience with HTML5 and CSS3&nbsp;</li><li>Knowledge of server-side rendering&nbsp;</li><li>Ability to write efficient, secure, clean, and scalable&nbsp;</li><li>Experience in consuming and designing RESTful APIs</li></ul>"}',
         'created_at' => Date::now()->toDateTimeString()
       ]);
+
+      DB::table('pages_blocks')->insert([
+        'page_id' => 1,
+        'name' => 'block_contacts',
+        'position' => 4,
+        'data' => '{"list": [{"image": "/storage/1elaPuyJWiCaCrmJvsVq15Yi_8YHccOQZ", "label": "Phone", "value": "+380987777777"}, {"image": "/storage/1qNTISx82YfVoL4X354z6yZQpnLCdftc-", "label": "Email", "value": "petyamaiko@gmail.com\npetyamaiko@yahoo.com"}, {"image": "/storage/1ZbQwIcx_jMtIvYeuINmq3A-6bgMulE0i", "label": "Address", "value": "Address Group, Kyiv, Ukraine"}], "title": "Contact info"}',
+        'created_at' => Date::now()->toDateTimeString()
+      ]);
     }
 }
