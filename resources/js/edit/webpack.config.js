@@ -1,5 +1,6 @@
 const { VueLoaderPlugin } = require("vue-loader");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 const isProduction = process.argv[process.argv.indexOf('--mode') + 1] === 'production';
@@ -18,11 +19,25 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: "vue-loader",
-      }
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader"
+          }
+        ],
+      },
     ],
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].[contenthash:8].css",
+      chunkFilename: "[name].[contenthash:8].css",
+    }),
   ]
 };

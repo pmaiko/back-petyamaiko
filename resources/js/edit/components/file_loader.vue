@@ -16,9 +16,6 @@
       type="file"
       class="form-control"
     >
-    <file_manager
-      @select="onSelect"
-    />
     <button
       class="btn btn-primary"
       type="button"
@@ -26,6 +23,9 @@
     >
       Load
     </button>
+    <file_manager
+      @select="onSelect"
+    />
   </div>
 
   <div class="mt-3">
@@ -37,7 +37,7 @@
       <span class="sr-only">Loading...</span>
     </div>
 
-    <img :src="'/storage/' + filePath" alt="" class="d-block w-25">
+    <img :src="filePath" alt="" class="d-block" style="width: 150px; height: 150px; object-fit: contain;">
   </div>
 </template>
 <script>
@@ -58,9 +58,15 @@ export default {
     }
   },
 
+  watch: {
+    filePath (value) {
+      this.$emit('input', value)
+    }
+  },
+
   methods: {
     onSelect (path) {
-      this.filePath = path
+      this.filePath = '/storage/' + path
     },
 
     load(event) {
@@ -88,8 +94,8 @@ export default {
           }
           return _Xhr;
         },
-        success: (data) => {
-          this.filePath = data
+        success: (path) => {
+          this.filePath = '/storage/' + path
         },
         error: (error) => {
           this.filePath = null;

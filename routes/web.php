@@ -75,7 +75,7 @@ function getFile ($filename) {
     }
 
     return response($rawData, 200)
-      ->header('Content-Type', $file['mimetype'])
+      ->header('Content-Type', $file['mimetype'].'+xml')
       ->header('Cache-Control', 'public, max-age=315360000')
       ->header('Content-Disposition', "attachment; filename=$filename");
   }

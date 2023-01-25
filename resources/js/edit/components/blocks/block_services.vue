@@ -48,6 +48,13 @@
               />
             </label>
           </div>
+          <div class="mb-3">
+            <file_loader
+              :name="'image'"
+              :image="item.image"
+              @input="(value) => item.image = value"
+            />
+          </div>
         </div>
         <input
           v-if="new_list.length"
@@ -79,6 +86,7 @@
 </template>
 <script>
 import base_block from "./base_block.vue"
+import file_loader from "../file_loader.vue"
 
 import blockMixin from "../../block-mixin.js";
 
@@ -89,7 +97,8 @@ export default {
   },
 
   components: {
-    base_block
+    base_block,
+    file_loader
   },
 
   mixins: [
@@ -102,7 +111,8 @@ export default {
       new_list: this.list || [],
       item: {
         label: '',
-        description: ''
+        description: '',
+        image: ''
       }
     }
   },

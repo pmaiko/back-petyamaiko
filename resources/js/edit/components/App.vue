@@ -38,12 +38,14 @@
 import block_main_banner from "./blocks/block_main_banner.vue"
 import block_projects from "./blocks/block_projects.vue"
 import block_services from "./blocks/block_services.vue"
+import block_about from "./blocks/block_about.vue"
 
 export default {
   components: {
     block_main_banner,
     block_projects,
-    block_services
+    block_services,
+    block_about
   },
 
   data() {
@@ -69,6 +71,10 @@ export default {
         {
           label: 'block_services',
           value: 'block_services'
+        },
+        {
+          label: 'block_about',
+          value: 'block_about'
         }
       ],
     }
