@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('image');
             $table->string('label');
             $table->longText('description');
+            $table->string('url');
             $table->bigInteger('likes')->nullable();
             $table->bigInteger('views')->nullable();
             $table->timestamps();

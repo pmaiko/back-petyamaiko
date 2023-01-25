@@ -5,7 +5,7 @@
     theme="snow"
     @update:content="onInput"
   ></quill-editor>
-  {{ editor }}
+  <input :value="editor" :name="name" type="hidden" class="visually-hidden">
 </template>
 
 <script>
@@ -14,19 +14,21 @@ export default {
   components: {},
 
   props: {
-    value: {
+    name: {},
+    modelValue: {
       default: ''
     }
   },
 
   data () {
     return {
-      editor: ''
+      editor: this.modelValue
     }
   },
 
   watch: {
-    value: {
+    modelValue: {
+      immediate: true,
       handler (value) {
         this.editor = value
       }

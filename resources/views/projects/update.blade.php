@@ -38,6 +38,17 @@
             class="form-control"
           >{{ $project['description'] }}</textarea>
         </label>
+        <label
+          class="form-label w-100"
+        >
+          Url
+          <input
+            value="{{ $project['url'] }}"
+            name="url"
+            type="text"
+            class="form-control"
+          />
+        </label>
       </div>
       <div class="mt-3 w-100">
         <x-file_loader

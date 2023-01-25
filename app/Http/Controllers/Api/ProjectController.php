@@ -31,13 +31,15 @@ class ProjectController extends Controller
         $request->validate([
             'image' => 'required',
             'label' => 'required|min:5',
-            'description' => 'required|min:5'
+            'description' => 'required|min:5',
+            'url' => 'required|min:5'
         ]);
 
         $project = Projects::create([
             "image" => $request->image,
             "label" => $request->label,
             "description" => $request->description,
+            "url" => $request->url,
             "created_at" => Date::now()->toDateTimeString()
         ]);
 
@@ -50,7 +52,8 @@ class ProjectController extends Controller
             'id' => 'required',
             'image' => 'required',
             'label' => 'required|min:5',
-            'description' => 'required|min:5'
+            'description' => 'required|min:5',
+            'url' => 'required|min:5'
         ]);
 
         Projects::where('id', $request->id)->update($request->toArray());

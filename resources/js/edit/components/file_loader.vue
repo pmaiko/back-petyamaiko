@@ -2,7 +2,7 @@
   <label
     class="form-label"
   >
-    Image
+    {{ label || 'Image' }}
   </label>
 
   <div class="input-group">
@@ -44,7 +44,7 @@
 import file_manager from './file_manager.vue'
 
 export default {
-  props: ['name', 'image'],
+  props: ['name', 'image', 'label'],
 
   components: {
     file_manager
