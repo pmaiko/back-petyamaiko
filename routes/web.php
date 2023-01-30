@@ -54,7 +54,7 @@ Route::get('/greeting', function () {
     return 'Hello World';
 });
 
-function getFile ($filename) {
+Route::get('/storage/{filename}', function ($filename) {
   $path = storage_path('app/' . $filename);
 
   if (!File::exists($path)) {
@@ -87,10 +87,6 @@ function getFile ($filename) {
   $response->header("Content-Type", $type);
 
   return $response;
-}
-
-Route::get('/storage/{filename}', function ($filename) {
-  return getFile($filename);
 });
 
 Route::get('/api/storage/all', function () {
