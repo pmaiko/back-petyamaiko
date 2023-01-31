@@ -18,12 +18,20 @@ use App\Http\Controllers\Api\ProjectsController;
 use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Support\Facades\Storage;
 
+Route::get('/info', function () {
+  return view('info');
+})->name('info');
+
+Route::get('/greeting', function () {
+  return 'Hello World';
+});
+
+
 Route::get('/', function () {
-    return view('home');
+  return view('home');
 })->name('home');
 
-
-//pages
+// pages
 Route::get('/pages', function () {
   $pages = [PagesController::class, 'index']();
   $data = [
@@ -32,27 +40,18 @@ Route::get('/pages', function () {
   return view('pages.index', $data);
 })->name('pages.index');
 
+Route::get('/pages/create', function () {
+  return view('pages.create');
+})->name('pages.create');
+
 Route::get('/pages/edit/{id}', function ($id) {
   return view('pages.edit', [PagesController::class, 'getPage']($id));
 })->name('pages.edit');
 
 Route::post('/pages/edit/{id}', function (Request $request) {
   return [PagesController::class, 'update']($request);
-})->name('pages.edit');
-//pages end
-
-
-Route::get('/pages/create', function () {
-    return view('pages.create');
-})->name('pages.create');
-
-Route::get('/info', function () {
-    return view('info');
-})->name('info');
-
-Route::get('/greeting', function () {
-    return 'Hello World';
 });
+// pages end
 
 Route::get('/storage/{filename}', function ($filename) {
   $path = storage_path('app/' . $filename);
@@ -102,7 +101,8 @@ Route::delete('/api/storage/{path}', function ($path) {
 //php artisan cache:clear
 //php artisan route:clear
 //php artisan config:clear
-//projects
+
+// projects
 Route::get('/projects', function () {
   $projects = [ProjectsController::class, 'index']();
 
@@ -120,7 +120,7 @@ Route::get('/projects/create', function () {
 Route::post('/projects/create', function (Request $request) {
   [ProjectController::class, 'post']($request);
   return redirect()->back()->with('status', 'Success');
-})->name('projects.create');
+});
 
 Route::get('/projects/update/{id}', function ($id) {
   $project = [ProjectController::class, 'indexCollect']($id);
@@ -133,9 +133,11 @@ Route::get('/projects/update/{id}', function ($id) {
 Route::post('/projects/update/{id}', function (Request $request) {
   [ProjectController::class, 'update']($request);
   return redirect()->back()->with('status', 'Success');
-})->name('projects.update');
+});
 
 Route::post('/projects/delete/{id}', function (Request $request) {
   [ProjectController::class, 'delete']($request);
   return redirect()->back()->with('status', 'Success');
 })->name('projects.delete');
+
+//projects end
