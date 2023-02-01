@@ -22,7 +22,7 @@ use App\Models\Projects;
 
 class ProjectsController extends Controller
 {
-    function index ()
+    static function index ()
     {
         $projects = Projects::all();
         return $projects->toArray();

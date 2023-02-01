@@ -10,7 +10,7 @@ use App\Entity\Post;
 
 class PagesController extends Controller
 {
-  function index () {
+  static function index () {
     return Pages::all()->toArray();
 
     //    try {
@@ -20,7 +20,7 @@ class PagesController extends Controller
     //    }
   }
 
-  function getPage ($id) {
+  static function getPage ($id) {
 //https://github.com/barryvdh/laravel-debugbar
 //посмотреть скопы
 //посмотреть карбон для времени
@@ -48,7 +48,7 @@ class PagesController extends Controller
     return $result;
   }
 
-  function update ($request) {
+  static function update ($request) {
         $request->validate([
           'title' => 'required',
           'description' => 'required',

@@ -14,7 +14,7 @@ use mysql_xdevapi\Exception;
 
 class ProjectsCommentsController extends Controller
 {
-    function index (Request $request) {
+    static function index (Request $request) {
         $request->validate([
            'project_id' => 'required'
         ]);
@@ -24,8 +24,7 @@ class ProjectsCommentsController extends Controller
         return response()->json($comments);
     }
 
-    function post (Request $request)
-    {
+    static function post (Request $request) {
         $comment = $request->validate([
             'project_id' => 'required',
             'name' => 'required|min:3',

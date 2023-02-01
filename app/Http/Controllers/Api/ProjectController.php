@@ -13,21 +13,20 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
-    function index ($id) {
+    static function index ($id) {
         if ($id) {
             $project = Projects::where('id', $id)->first();
             return response()->json($project);
         }
     }
 
-    function indexCollect ($id) {
+    static function indexCollect ($id) {
         if ($id) {
           return Projects::where('id', $id)->first();
         }
     }
 
-    function post (Request $request)
-    {
+    static function post (Request $request) {
         $request->validate([
             'image' => 'required',
             'label' => 'required|min:5',
@@ -46,8 +45,7 @@ class ProjectController extends Controller
         return response()->json($project);
     }
 
-    function update (Request $request)
-    {
+    static function update (Request $request) {
         $request->validate([
             'id' => 'required',
             'image' => 'required',
@@ -63,7 +61,7 @@ class ProjectController extends Controller
         return response()->json($project);
     }
 
-    function delete (Request $request) {
+    static function delete (Request $request) {
         $request->validate([
             'id' => 'required'
         ]);
@@ -75,7 +73,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    function like (Request $request) {
+    static function like (Request $request) {
         $request->validate([
             'id' => 'required',
             'like' => 'required|boolean'
@@ -104,7 +102,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    function view (Request $request) {
+    static function view (Request $request) {
         $request->validate([
             'id' => 'required',
             'view' => 'required|boolean'

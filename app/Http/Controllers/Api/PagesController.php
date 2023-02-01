@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    function index (Request $request) {
+    static function index (Request $request) {
       $page = Pages::where('alias', $request->alias)->first();
       $blocks = array_values($page->blocks->sortBy('position')->toArray());
 

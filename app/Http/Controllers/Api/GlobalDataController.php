@@ -7,7 +7,7 @@ use App\Models\GlobalData;
 
 
 class GlobalDataController extends Controller {
-    public function index () {
+    static public function index () {
         return response()->json(GlobalData::getData());
     }
 }

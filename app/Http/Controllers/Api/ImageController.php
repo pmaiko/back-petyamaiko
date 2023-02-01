@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 //https://developers.google.com/oauthplayground
 
 class ImageController extends Controller {
-  public function post (Request $request) {
+  static public function post (Request $request) {
     $file = $request->file('file');
     $filename = $file->getClientOriginalName();
 
@@ -29,7 +29,7 @@ class ImageController extends Controller {
       ->header('Content-Disposition', "attachment; filename='$filename'");
   }
 
-  public function load (Request $request) {
+  static public function load (Request $request) {
     $file = $request->file('file');
     $filename = $file->getClientOriginalName();
 

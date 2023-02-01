@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
+    static public function register(Request $request) {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
@@ -33,7 +33,7 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
-    public function login(Request $request) {
+    static public function login(Request $request) {
         $fields = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string'
@@ -65,7 +65,7 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
-    public function logout(Request $request) {
+    static public function logout(Request $request) {
         auth()->user()->tokens()->delete();
 
         return [
@@ -73,7 +73,7 @@ class AuthController extends Controller
         ];
     }
 
-    public function user (Request $request) {
+    static public function user (Request $request) {
         return response()->json(auth()->user());
     }
 }
