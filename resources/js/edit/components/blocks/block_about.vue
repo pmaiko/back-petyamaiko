@@ -49,6 +49,14 @@
     </div>
 
     <div class="mb-3">
+      <file_loader
+        label="Image"
+        :name="`blocks[${id}][image]`"
+        :image="image"
+      />
+    </div>
+
+    <div class="mb-3">
       <label
         class="form-label w-100"
       >
@@ -82,6 +90,7 @@ export default {
     title: String,
     label: String,
     description: String,
+    image: String,
     buttonText: String,
     buttonLink: String
   },
